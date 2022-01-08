@@ -1,0 +1,22 @@
+.headerOptions_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    color: gray; 
+    cursor: pointer;
+    margin: 0 20px;
+}
+.headerOptions_container:hover{
+    color: black;
+}
+.headerOptions_container > h3{
+    font-size: 10px;
+}
+.headerOptions_icon{
+    object-fit: contain;
+    height: 25px!important;
+    width: 25px;
+}
+
+
+
