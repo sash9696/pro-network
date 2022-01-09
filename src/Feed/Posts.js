@@ -7,13 +7,7 @@ import SendOutlinedIcon  from '@material-ui/icons/SendOutlined';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import MessageOutlinedIcon  from '@material-ui/icons/MessageOutlined';
 
-
-
-
-
-const  Posts = forwardRef (({name, message, description, photoUrl},ref) => {
-    
-    
+const  Posts = forwardRef (({id, name, message, description, photoUrl, like, comment, onLikeClick},ref) => {
 
     return (
         <div ref={ref} className='posts_container'>
@@ -25,21 +19,18 @@ const  Posts = forwardRef (({name, message, description, photoUrl},ref) => {
                 <p className='posts_name'>{name}</p>
                 <p className='posts_des'>{description}</p>
             </div>
-            
-            
         </div>
         <div className="posts_body">
                 <p>{message} </p>
         </div>
         <div className="posts_options">
-              <InputItems Icon={ThumbUpOutlinedIcon} title="Like" />  
-              <InputItems Icon={MessageOutlinedIcon} title="Comment" />
+              <InputItems Icon={ThumbUpOutlinedIcon} onLikeClick={onLikeClick} title="Like" like={like}/>
+              <InputItems Icon={MessageOutlinedIcon} title="Comment" comment={comment} />
               <InputItems Icon={ShareOutlinedIcon} title="Share" />
-              <InputItems Icon={SendOutlinedIcon } title="Send" />
+              <InputItems Icon={SendOutlinedIcon } title="Send" />     
+        </div>        
         </div>
-            
-        </div>
-    )
+    )  
 })
 
 export default Posts

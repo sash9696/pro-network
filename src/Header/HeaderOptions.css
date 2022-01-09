@@ -17,6 +17,11 @@
     height: 25px!important;
     width: 25px;
 }
+@media only screen and (max-width: 500px){
+    .headerOptions_container{
+        margin: 5px!important;
+    }
+}
 
 
 

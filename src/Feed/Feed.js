@@ -14,24 +14,39 @@ import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import FlipMove from 'react-flip-move';
 
-
 function Feed() {
+    const user = useSelector(selectUser);
+    
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
-    const user = useSelector(selectUser);
-
+    const [olderPosts, setOlderPosts] = useState([]);
+    
+    
+   
     useEffect(() => {
-        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
-            setPosts(snapshot.docs.map(doc => (
-                {
-                id: doc.id,
-                data: doc.data()
-            }
-            ))
-
-            )
-        })
+            getPosts();
+            db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
+                setPosts(snapshot.docs.map(doc => (
+                    {
+                    id: doc.id,
+                    data: doc.data()
+                }
+                ))
+                )
+            })    
     }, [])
+    
+    const getPosts = () => {
+        async function postData(url = '') {
+            const response = await fetch(url);
+            return response.json()
+        }
+        postData("https://mocki.io/v1/6e441185-0ffc-49c7-ae5f-a5a0b2787b56")
+            .then((data) => {
+                setOlderPosts(data.posts);
+                console.log(data);
+            })
+    } 
 
     const sendPost = (e) => {
         e.preventDefault();
@@ -41,10 +56,25 @@ function Feed() {
             description: user.email,
             message:input,
             photoUrl: user.photoUrl || "",
+            likeCount: 0,
+            commentCount: 0,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
         setInput('');
     };
+
+    const updatePost = (id, likeCount) => {
+        console.log("chal rha hai", id)
+        console.log("chal rha hai likecunt", likeCount)
+
+            db.collection('posts').doc(id).update({
+                likeCount: likeCount+1,
+                // commentCount: commentCount+1
+            })
+            
+    }
+    
+
     return (
         <div className='feed_container'>
             <div className="container">
@@ -63,23 +93,32 @@ function Feed() {
                     </div>
             </div>
             <FlipMove>
-                {posts.map(({id, data:{name, description, message, photoUrl}}) => ( 
-                      <Posts avatar={sahil}
-                        key = {id}
+                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, commentCount}}) => ( 
+                      <Posts 
+                        id = {id}
                         name = {name}
-                        description={description}
-                        message={message}
-                        photoUrl={photoUrl}
-
+                        description= {description}
+                        message= {message}
+                        photoUrl= {photoUrl}
+                        like={likeCount}
+                        comment={commentCount}
+                        onLikeClick={() => updatePost(id, likeCount)}
                       />
-                
-                
                 ))}
-            </FlipMove>
-                
-                
-
+            </FlipMove>  
             
+                {olderPosts.map((data) => (
+                    <Posts
+                        id = {data.id}
+                        name = {data.name}
+                        description= {data.description}
+                        message= {data.message}
+                        like= {data.likeCount}
+                        comment= {data.commentCount}
+                    />
+                ))}
+            
+             
         </div>
     )
 }

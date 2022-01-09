@@ -47,3 +47,15 @@
     color: #0074b1;
     cursor: pointer;
 }
+@media only screen and (max-width: 400px){
+    .login_container > form >input{
+        width: 250px;
+        margin-left: 10px;
+    }
+}
+@media only screen and (max-width: 400px){
+    .login_container > form > button{
+        width: 71vw;
+        margin-left: 10px;
+    }
+}

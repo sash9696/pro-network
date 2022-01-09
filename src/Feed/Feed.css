@@ -40,3 +40,14 @@
 .input_container > form > button{
     display: none;
 }
+@media only screen and (max-width: 800px) {
+    .feed_container{
+        flex: 1;
+    }
+  }
+
+@media only screen and (max-width :500px){
+    .container{
+        width: 80vw;
+    }
+}

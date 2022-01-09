@@ -30,8 +30,6 @@ function Widgets() {
             {newsItems.map((value) => (
                 news(value.headline, value.subtitle)
             ))}   
-
-            
             
         </div>
     )

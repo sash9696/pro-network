@@ -10,10 +10,11 @@ import Login from './Login/Login';
 import { auth } from './firebase';
 import { login, logout } from './features/userSlice';
 import Widgets from './Widgets/Widgets';
+// import Example from './Example';
 
 
 function App() {
-
+  
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
@@ -45,7 +46,9 @@ function App() {
           <Feed/>
           <Widgets/>
         </div>
+        
       )}
+      
     
       
     </div>

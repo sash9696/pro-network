@@ -22,3 +22,8 @@
     border-radius: 10px;
     
 }
+@media only screen and (max-width: 500px){
+    .inputItems{
+        font-size: 0.5rem;
+    }
+}
