@@ -38,9 +38,10 @@ function App() {
 
   return (
     <div className="app">
-      <Header/>
+      {user && <Header/> } 
       {/* App Body */}
       {!user ? <Login/> : (
+          
           <div className="app_body"> 
           <Sidebar avatar= {sahil}/>
           <Feed/>

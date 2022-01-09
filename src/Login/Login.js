@@ -59,9 +59,9 @@ function Login() {
                  alt=''/>
             <form>
                 <input value={name} onChange={(e => setName(e.target.value))} placeholder='Full Name (required if registered)' type='text'/>
-                <input value={profilePic} onChange={(e => setProfilePic(e.target.value))} placeholder='profile pic url (optional)' type='text'/>
-                <input value={email} onChange={(e => setEmail(e.target.value))} placeholder='email' type='email'/>
-                <input value={password} onChange={(e => setPassword(e.target.value))} placeholder='password' type='password'/>
+                <input value={profilePic} onChange={(e => setProfilePic(e.target.value))} placeholder='Profile Pic Url (optional)' type='text'/>
+                <input value={email} onChange={(e => setEmail(e.target.value))} placeholder='Email' type='email'/>
+                <input value={password} onChange={(e => setPassword(e.target.value))} placeholder='Password' type='password'/>
                 <button onClick={loginToApp} className='signin_button' type='submit'>Sign In</button>
             </form>
             <p>Not a member?<span onClick={register} className='register_option'> Register now.</span></p>
