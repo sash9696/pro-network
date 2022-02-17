@@ -9,11 +9,12 @@
 
 }
 .posts_header > p{
-    margin-top: 20px;
     margin-right: 20px;
 }
 .posts_header{
     display: flex;
+    align-items: center;
+    margin: 10px 0;
 }
 .posts_name{
     font-size: 1rem;

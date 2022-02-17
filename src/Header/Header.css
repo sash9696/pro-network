@@ -5,7 +5,7 @@
     display: flex;
     background-color: whitesmoke;
     width: 100%;
-    border-bottom: 2px solid whitesmoke;
+    border-bottom: 1px solid lightgrey;
     justify-content: space-evenly;
     z-index: 999;
 }

@@ -20,9 +20,6 @@ function Feed() {
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [olderPosts, setOlderPosts] = useState([]);
-    
-    
-   
     useEffect(() => {
             getPosts();
             db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
@@ -52,6 +49,7 @@ function Feed() {
         e.preventDefault();
         //database
         db.collection('posts').add({
+            userIdInPost: user.uid,
             name: user.displayName,
             description: user.email,
             message:input,
@@ -64,17 +62,12 @@ function Feed() {
     };
 
     const updatePost = (id, likeCount) => {
-        console.log("chal rha hai", id)
-        console.log("chal rha hai likecunt", likeCount)
-
             db.collection('posts').doc(id).update({
                 likeCount: likeCount+1,
                 // commentCount: commentCount+1
             })
             
     }
-    
-
     return (
         <div className='feed_container'>
             <div className="container">
@@ -82,7 +75,7 @@ function Feed() {
                         <CreateIcon/>
                         <form>
                             <input value={input} onChange = {(e => setInput(e.target.value))} type="text"/>     
-                            <button onClick={sendPost} type='submit'>Submit</button>          
+                            <button onClick={sendPost} type='submit'>Submit</button> 
                         </form>
                     </div>
                     <div className="input_items">
@@ -93,7 +86,7 @@ function Feed() {
                     </div>
             </div>
             <FlipMove>
-                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, commentCount}}) => ( 
+                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, commentCount, userIdInPost}}) => ( 
                       <Posts 
                         id = {id}
                         name = {name}
@@ -102,6 +95,7 @@ function Feed() {
                         photoUrl= {photoUrl}
                         like={likeCount}
                         comment={commentCount}
+                        userIdInPost={userIdInPost}
                         onLikeClick={() => updatePost(id, likeCount)}
                       />
                 ))}

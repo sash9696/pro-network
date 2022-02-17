@@ -25,16 +25,13 @@
     display: flex;
     width: 100%;
 }
-.input_container > form > input{
-    
+.input_container > form > input{  
     border: none;
     outline-width: 0;
     flex: 1;  
-
 }
 .input_items{
     display: flex;
-    
     justify-content: space-evenly;
 }
 .input_container > form > button{
