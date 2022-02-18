@@ -42,8 +42,6 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, like, like
 
     return (
         <div ref={ref} className='posts_container'>
-            <p>{user.uid}</p>
-            {likedBy && likedBy.map(val => (<p>{val}</p>)) }
             <div className="posts_header">
                 <p> <Avatar className='sidebar_avatar' src={photoUrl || ""}>
                     {name[0].toUpperCase()}
