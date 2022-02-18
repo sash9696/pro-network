@@ -6,19 +6,18 @@ import { newsItems } from './NewsItems';
 
 function Widgets() {
 
-    const news = (headlines, subtitles) => (
-
-        <div className="widgets">
-            <div className="widgets_left">
-                <FiberManualRecordIcon style={{height:'10px', width:'10px'}}/>
+    const news = (headlines, subtitles, link) => (
+        <a style={{textDecoration: 'none'}} href={link} target="_blank">
+            <div className="widgets">
+                <div className="widgets_left">
+                    <FiberManualRecordIcon style={{height:'10px', width:'10px'}}/>
+                </div>
+                <div className="widgets_right">
+                    <p className='headlines'>{headlines}</p>
+                    <p className='subtitles'>{subtitles}</p>
+                </div>
             </div>
-            <div className="widgets_right">
-                <p className='headlines'>{headlines}</p>
-                <p className='subtitles'>{subtitles}</p>
-            </div>
-                
-        </div>
-        
+        </a>                
     )
     return (
         <div className='widget_container'>
@@ -28,7 +27,7 @@ function Widgets() {
             </div>
 
             {newsItems.map((value) => (
-                news(value.headline, value.subtitle)
+                news(value.headline, value.subtitle, value.link)
             ))}   
             
         </div>

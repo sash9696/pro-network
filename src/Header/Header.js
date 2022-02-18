@@ -9,10 +9,14 @@ import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import ChatIcon from "@material-ui/icons/Chat";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import sahil from '../images/sahil.jpeg';
+import Button from '@material-ui/core/Button';
 import { auth } from '../firebase';
 import { logout } from '../features/userSlice';
+import {useSelector} from 'react-redux';
+import { selectUser } from '../features/userSlice';
 
 function Header() {
+    const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const logOutOfApp = () => {
         dispatch(logout())
@@ -28,13 +32,8 @@ function Header() {
                 </div>
             </div>
             <div className="header_right">
-                <HeaderOptions Icon={HomeIcon} title="Home"/>
-                <HeaderOptions Icon={SupervisorAccountIcon} title="My Network"/>
-                <HeaderOptions Icon={BusinessCenterIcon} title="Jobs"/>
-                <HeaderOptions Icon={ChatIcon} title="Messaging"/>
-                <HeaderOptions Icon={NotificationsIcon} title="Notifications"/>
-                <HeaderOptions avatar={sahil} title="Me" onClick={logOutOfApp} />
-                
+                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={logOutOfApp} variant="outlined">Hi, {user.displayName}</Button>
+                <Button style={{backgroundColor: "#0047ab", color: 'white'}} onClick={logOutOfApp} variant="outlined">Logout</Button>
             </div>
             
         </div>

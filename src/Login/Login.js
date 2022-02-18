@@ -16,20 +16,19 @@ function Login() {
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password).then((userAuth)=>{
             dispatch(login({
-                email: userAuth.email,
-                uid: userAuth.uid,
-                displayName: userAuth.displayName,
+                email: userAuth?.email,
+                uid: userAuth?.uid,
+                displayName: userAuth?.displayName,
             }))
-        }).catch((error) => alert(error))
+        }).catch((error) => {
+            alert(error)
+        })
     }
     const register = () => {
-
         if(!name)
         {
             return alert('Please enter full name!');
         }
-
-        
             auth.createUserWithEmailAndPassword(email, password).then((userAuth)=>{
                 userAuth.user.updateProfile({
                     displayName: name,
@@ -44,10 +43,6 @@ function Login() {
                 })
             })
             .catch((error) => alert(error));
-            
-
-        
-
     };
     
 

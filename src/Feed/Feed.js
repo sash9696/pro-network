@@ -20,6 +20,9 @@ function Feed() {
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [olderPosts, setOlderPosts] = useState([]);
+    const [cantDeleteOthersPost, setCantDeleteOthersPost] = useState(false);
+    const [postDeletionSuccess, setPostDeletionSuccess] = useState(false);
+
     useEffect(() => {
             getPosts();
             db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
@@ -30,7 +33,7 @@ function Feed() {
                 }
                 ))
                 )
-            })    
+            })   
     }, [])
     
     const getPosts = () => {
@@ -41,7 +44,6 @@ function Feed() {
         postData("https://mocki.io/v1/6e441185-0ffc-49c7-ae5f-a5a0b2787b56")
             .then((data) => {
                 setOlderPosts(data.posts);
-                console.log(data);
             })
     } 
 
@@ -55,21 +57,52 @@ function Feed() {
             message:input,
             photoUrl: user.photoUrl || "",
             likeCount: 0,
+            likedBy: [],
             commentCount: 0,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
         setInput('');
     };
 
-    const updatePost = (id, likeCount) => {
-            db.collection('posts').doc(id).update({
-                likeCount: likeCount+1,
-                // commentCount: commentCount+1
-            })
-            
+    const likeThePost = (id, likeCount) => {
+        db.collection('posts').doc(id).update({
+            likeCount: likeCount+1,
+            likedBy: firebase.firestore.FieldValue.arrayUnion(user.uid)
+        })
     }
+
+    const dislikeThePost = (id, likeCount) => {
+        db.collection('posts').doc(id).update({
+            likeCount: likeCount-1,
+            likedBy: firebase.firestore.FieldValue.arrayRemove(user.uid)
+        })
+    }
+
+    const onlikePost = (id, likedBy, likeCount) => {
+        if (likedBy.includes(user.uid)) {
+            dislikeThePost(id, likeCount)
+        }   
+        else {
+            likeThePost(id, likeCount)
+        }
+    }
+
+    const showCantDeleteOthersPost = () => (
+        <div className='feed_cant_delete_others_post'>
+            You can't delete someone else's post
+        </div>
+    )
+
+    const showPostDeleted = () => (
+        <div className='feed_post_deleted'>
+            Post deleted successfully
+        </div>
+    )
+
     return (
         <div className='feed_container'>
+            {cantDeleteOthersPost && showCantDeleteOthersPost()}
+            {postDeletionSuccess && showPostDeleted()}
             <div className="container">
                     <div className="input_container">
                         <CreateIcon/>
@@ -86,21 +119,26 @@ function Feed() {
                     </div>
             </div>
             <FlipMove>
-                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, commentCount, userIdInPost}}) => ( 
-                      <Posts 
+                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
+                    <Posts 
                         id = {id}
                         name = {name}
                         description= {description}
                         message= {message}
                         photoUrl= {photoUrl}
-                        like={likeCount}
+                        likedBy={likedBy}
                         comment={commentCount}
                         userIdInPost={userIdInPost}
-                        onLikeClick={() => updatePost(id, likeCount)}
-                      />
+                        postDeletionSuccess={postDeletionSuccess}
+                        setPostDeletionSuccess={setPostDeletionSuccess}
+                        cantDeleteOthersPost={cantDeleteOthersPost}
+                        setCantDeleteOthersPost={setCantDeleteOthersPost}
+                        showCantDeleteOthersPost={showCantDeleteOthersPost}
+                        hasUserLikedThePost={likedBy?.includes(user.uid)}
+                        onLikeClick={() => onlikePost(id, likedBy, likeCount)}
+                    />
                 ))}
             </FlipMove>  
-            
                 {olderPosts.map((data) => (
                     <Posts
                         id = {data.id}

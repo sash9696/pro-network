@@ -5,12 +5,9 @@ function InputItems({Icon, title, color, like, comment, onLikeClick}) {
     return (
         <div onClick={onLikeClick} className='inputItems'>
             {Icon && <Icon style = {{color:color}} />}
-            <p>{title}</p>
             {like ?  <p>{like}</p> : "" }
+            <p>{title}</p>
             {comment ? <p>{comment}</p> : "" }
-            
-
-            
         </div>
     )
 }

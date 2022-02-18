@@ -4,14 +4,13 @@
     top: 0;
     display: flex;
     background-color: whitesmoke;
-    width: 100%;
     border-bottom: 1px solid lightgrey;
-    justify-content: space-evenly;
+    justify-content: space-between;
     z-index: 999;
+    padding: 0 10%;
 }
 .header_left{
     margin: 10px;
-    width: 230px;
     display: flex; 
     align-items: center; 
     justify-content: space-evenly;
@@ -21,21 +20,18 @@
     display: flex;
     align-items: center;
     height: 40px;
-    background-color: whitesmoke;
-  
+    background-color: white;
+    margin-left: 10px;
 }
 .search_box > input{
     border: none;
     outline: 0;
     background: none;
-   
-    
+    width: 300px;
 }
 .search_icon{
     color: gray;
 }
-
-
 .header_left > img{
     height: 50px;
     width: 48px;
@@ -45,6 +41,7 @@
 .header_right{
     display: flex;
     align-items: center;
+    padding-right: 11%;
 }
 @media only screen and (max-width: 800px){
     .header_container{

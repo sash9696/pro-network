@@ -33,8 +33,7 @@
 .posts_options{
     display: flex;
     padding-top: 20px;
-    justify-content: space-between;
-    width: 400px;
+    justify-content: space-evenly;
 }
 
 .posts_body > p{
