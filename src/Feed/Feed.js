@@ -51,17 +51,22 @@ function Feed({ search }) {
 
     const sendPost = (e) => {
         e.preventDefault();
-        db.collection('posts').add({
-            userIdInPost: user.uid,
-            name: user.displayName,
-            description: user.email,
-            message:input,
-            photoUrl: user.photoUrl || "",
-            likeCount: 0,
-            likedBy: [],
-            commentCount: 0,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        })
+        if (input) {
+            db.collection('posts').add({
+                userIdInPost: user.uid,
+                name: user.displayName,
+                description: user.email,
+                message:input,
+                photoUrl: user.photoUrl || "",
+                likeCount: 0,
+                likedBy: [],
+                commentCount: 0,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+        }
+       else {
+           alert("Post cannot be empty.")
+       }
         setInput('');
     };
 
@@ -101,21 +106,26 @@ function Feed({ search }) {
     )
 
     const updateThePost = (id, userIdInPost) => {
-        if(userIdInPost === user.uid) {
-            db.collection('posts').doc(id).update({
-                message: updatedMessage,
-            }).then(() => {
-                setPostUpdationSuccess(true)
-                postUpdated()
+        if (updatedMessage) {
+            if(userIdInPost === user.uid) {
+                db.collection('posts').doc(id).update({
+                    message: updatedMessage,
+                }).then(() => {
+                    setPostUpdationSuccess(true)
+                    postUpdated()
+                    setUpdatedMessage('')
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+            else {
+                setCantUpdateOthersPost(true)
+                cantUpdatePost()
                 setUpdatedMessage('')
-            }).catch((err) => {
-                console.log(err)
-            })
+            }
         }
         else {
-            setCantUpdateOthersPost(true)
-            cantUpdatePost()
-            setUpdatedMessage('')
+            alert("Post cannot be empty.")
         }
     }
 
