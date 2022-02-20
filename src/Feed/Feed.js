@@ -106,8 +106,8 @@ function Feed({ search }) {
     )
 
     const updateThePost = (id, userIdInPost) => {
-        if (updatedMessage) {
-            if(userIdInPost === user.uid) {
+        if (userIdInPost === user.uid) {
+            if(updatedMessage ) {
                 db.collection('posts').doc(id).update({
                     message: updatedMessage,
                 }).then(() => {
@@ -119,13 +119,13 @@ function Feed({ search }) {
                 })
             }
             else {
-                setCantUpdateOthersPost(true)
-                cantUpdatePost()
-                setUpdatedMessage('')
+                alert("Post cannot be empty.")
             }
         }
         else {
-            alert("Post cannot be empty.")
+            setCantUpdateOthersPost(true)
+            cantUpdatePost()
+            setUpdatedMessage('')
         }
     }
 
