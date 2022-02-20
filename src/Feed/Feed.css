@@ -34,7 +34,13 @@
     justify-content: space-evenly;
 }
 .input_container > form > button{
-    display: none;
+    border: none;
+    background-color: transparent;
+    color: #0047ab;
+    font-weight: 600;
+}
+.input_container > form > button:hover {
+    cursor: pointer;
 }
 
 .feed_cant_delete_others_post, .feed_post_deleted {

@@ -33,6 +33,7 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
     
     const deletePost = () => {
         if(userIdInPost === user.uid) {
+            db.collection('posts').doc(id).delete()
             setPostDeletionSuccess(true)
             postDeleted()
         }
@@ -89,10 +90,10 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
                     like={likedBy?.length} 
                     color={hasUserLikedThePost ? "#0047ab" : ""}
                 /> 
-                <InputItems 
+                {/* <InputItems 
                     Icon={MessageOutlinedIcon} 
                     title="Comment" 
-                />
+                /> */}
                 <InputItems 
                     Icon={EditIcon} 
                     title="Edit" 

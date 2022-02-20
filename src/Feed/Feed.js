@@ -104,10 +104,13 @@ function Feed({ search }) {
         if(userIdInPost === user.uid) {
             db.collection('posts').doc(id).update({
                 message: updatedMessage,
+            }).then(() => {
+                setPostUpdationSuccess(true)
+                postUpdated()
+                setUpdatedMessage('')
+            }).catch((err) => {
+                console.log(err)
             })
-            setPostUpdationSuccess(true)
-            postUpdated()
-            // setUpdatedMessage('')
         }
         else {
             setCantUpdateOthersPost(true)
@@ -151,7 +154,7 @@ function Feed({ search }) {
                         <CreateIcon/>
                         <form>
                             <input value={input} onChange = {(e => setInput(e.target.value))} type="text"/>     
-                            <button onClick={sendPost} type='submit'>Submit</button> 
+                            <button onClick={sendPost} type='submit'>Post</button> 
                         </form>
                     </div>
                     <div className="input_items">
