@@ -41,6 +41,38 @@
     padding-top: 15px;
 }
 
+.edit_post_modal_heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit_post_modal_heading > h1 {
+    background-color: black !important;
+}
+
+.edit_post_modal_heading_close {
+    background-color: transparent;
+    border: none;
+    border-style: none;
+    font-size: 30px;
+}
+
+.edit_post_modal_heading_close:hover {
+   cursor: pointer;
+}
+
+.edit_post_modal_input {
+    border-radius: 8px;
+    height: 35px;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.edit_post_modal_update_btn {
+    display: flex;
+    justify-content: right;
+}
+
 @media only screen and (max-width: 1200px) {
     .posts_options{
         flex-wrap: wrap;

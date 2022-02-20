@@ -7,14 +7,13 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import InputItems from './InputItems';
 import Posts from './Posts';
-import sahil from '../images/sahil.jpeg';
 import db from '../firebase';
 import firebase from 'firebase/compat/app'
 import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import FlipMove from 'react-flip-move';
 
-function Feed() {
+function Feed({ search }) {
     const user = useSelector(selectUser);
     
     const [input, setInput] = useState('');
@@ -22,15 +21,18 @@ function Feed() {
     const [olderPosts, setOlderPosts] = useState([]);
     const [cantDeleteOthersPost, setCantDeleteOthersPost] = useState(false);
     const [postDeletionSuccess, setPostDeletionSuccess] = useState(false);
+    const [updatedMessage, setUpdatedMessage] = useState('');
+    const [postUpdationSuccess, setPostUpdationSuccess] = useState(false);
+    const [cantUpdateOthersPost, setCantUpdateOthersPost] = useState(false);
 
     useEffect(() => {
             getPosts();
             db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
                 setPosts(snapshot.docs.map(doc => (
                     {
-                    id: doc.id,
-                    data: doc.data()
-                }
+                        id: doc.id,
+                        data: doc.data()
+                    }
                 ))
                 )
             })   
@@ -49,7 +51,6 @@ function Feed() {
 
     const sendPost = (e) => {
         e.preventDefault();
-        //database
         db.collection('posts').add({
             userIdInPost: user.uid,
             name: user.displayName,
@@ -99,10 +100,52 @@ function Feed() {
         </div>
     )
 
+    const updateThePost = (id, userIdInPost) => {
+        if(userIdInPost === user.uid) {
+            db.collection('posts').doc(id).update({
+                message: updatedMessage,
+            })
+            setPostUpdationSuccess(true)
+            postUpdated()
+            // setUpdatedMessage('')
+        }
+        else {
+            setCantUpdateOthersPost(true)
+            cantUpdatePost()
+            setUpdatedMessage('')
+        }
+    }
+
+    const showPostUpdated = () => {
+        <div className='feed_post_deleted'>
+            Post updated successfully
+        </div>
+    }
+
+    const showCantUpdateOthersPost = () => (
+        <div className='feed_cant_delete_others_post'>
+            You can't update someone else's post
+        </div>
+    )
+
+    const postUpdated = () => {
+        setTimeout(() => {
+            setPostUpdationSuccess(false)
+        }, 4000)
+    }
+
+    const cantUpdatePost = () => {
+        setTimeout(() => {
+            setCantUpdateOthersPost(false)
+        }, 4000)
+    }
+
     return (
         <div className='feed_container'>
             {cantDeleteOthersPost && showCantDeleteOthersPost()}
             {postDeletionSuccess && showPostDeleted()}
+            {postUpdationSuccess && showPostUpdated()}
+            {cantUpdateOthersPost && showCantUpdateOthersPost()}
             <div className="container">
                     <div className="input_container">
                         <CreateIcon/>
@@ -119,38 +162,56 @@ function Feed() {
                     </div>
             </div>
             <FlipMove>
-                {posts.map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
-                    <Posts 
-                        id = {id}
-                        name = {name}
-                        description= {description}
-                        message= {message}
-                        photoUrl= {photoUrl}
-                        likedBy={likedBy}
-                        comment={commentCount}
-                        userIdInPost={userIdInPost}
-                        postDeletionSuccess={postDeletionSuccess}
-                        setPostDeletionSuccess={setPostDeletionSuccess}
-                        cantDeleteOthersPost={cantDeleteOthersPost}
-                        setCantDeleteOthersPost={setCantDeleteOthersPost}
-                        showCantDeleteOthersPost={showCantDeleteOthersPost}
-                        hasUserLikedThePost={likedBy?.includes(user.uid)}
-                        onLikeClick={() => onlikePost(id, likedBy, likeCount)}
-                    />
-                ))}
-            </FlipMove>  
-                {olderPosts.map((data) => (
-                    <Posts
-                        id = {data.id}
-                        name = {data.name}
-                        description= {data.description}
-                        message= {data.message}
-                        like= {data.likeCount}
-                        comment= {data.commentCount}
-                    />
-                ))}
-            
-             
+                { search ? 
+                    (posts.filter(msg => msg?.data.name?.includes(search)).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
+                        <Posts 
+                            id = {id}
+                            name = {name}
+                            description= {description}
+                            message= {message}
+                            photoUrl= {photoUrl}
+                            likedBy={likedBy}
+                            comment={commentCount}
+                            userIdInPost={userIdInPost}
+                            postDeletionSuccess={postDeletionSuccess}
+                            setPostDeletionSuccess={setPostDeletionSuccess}
+                            cantDeleteOthersPost={cantDeleteOthersPost}
+                            setCantDeleteOthersPost={setCantDeleteOthersPost}
+                            showCantDeleteOthersPost={showCantDeleteOthersPost}
+                            hasUserLikedThePost={likedBy?.includes(user.uid)}
+                            onLikeClick={() => onlikePost(id, likedBy, likeCount)}
+                            // showPostUpdated={showPostUpdated}
+                            updatedMessage={updatedMessage}
+                            setUpdatedMessage={setUpdatedMessage}
+                            updateThePost={() => updateThePost(id, userIdInPost)}
+                        />
+                    ))) 
+                    : 
+                        (posts.map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
+                            <Posts 
+                                id = {id}
+                                name = {name}
+                                description= {description}
+                                message= {message}
+                                photoUrl= {photoUrl}
+                                likedBy={likedBy}
+                                comment={commentCount}
+                                userIdInPost={userIdInPost}
+                                postDeletionSuccess={postDeletionSuccess}
+                                setPostDeletionSuccess={setPostDeletionSuccess}
+                                cantDeleteOthersPost={cantDeleteOthersPost}
+                                setCantDeleteOthersPost={setCantDeleteOthersPost}
+                                showCantDeleteOthersPost={showCantDeleteOthersPost}
+                                hasUserLikedThePost={likedBy?.includes(user.uid)}
+                                onLikeClick={() => onlikePost(id, likedBy, likeCount)}
+                                // showPostUpdated={showPostUpdated}
+                                updatedMessage={updatedMessage}
+                                setUpdatedMessage={setUpdatedMessage}
+                                updateThePost={() => updateThePost(id, userIdInPost)}
+                            />
+                        )))
+                }
+            </FlipMove>              
         </div>
     )
 }

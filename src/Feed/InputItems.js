@@ -1,9 +1,9 @@
 import React from 'react';
 import './InputItems.css'
 
-function InputItems({Icon, title, color, like, comment, onLikeClick}) {
+function InputItems({Icon, title, color, like, comment, onClick}) {
     return (
-        <div onClick={onLikeClick} className='inputItems'>
+        <div onClick={onClick} className='inputItems'>
             {Icon && <Icon style = {{color:color}} />}
             {like ?  <p>{like}</p> : "" }
             <p>{title}</p>

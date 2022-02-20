@@ -15,7 +15,7 @@ import { logout } from '../features/userSlice';
 import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
 
-function Header() {
+function Header({ search, setSearch }) {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const logOutOfApp = () => {
@@ -28,11 +28,11 @@ function Header() {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2dYFM1O8GbZ52Bc3lQqGXRSOsJrK3RnHbaQ&usqp=CAU " alt=""/>
                 <div className="search_box">
                     <SearchIcon className='search_icon'/>
-                    <input type="text" placeholder='Search'/>
+                    <input type="text" placeholder='Search' value={search} onChange={(e => setSearch(e.target.value))} />
                 </div>
             </div>
             <div className="header_right">
-                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={logOutOfApp} variant="outlined">Hi, {user.displayName}</Button>
+                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} variant="outlined">Hi, {user.displayName}</Button>
                 <Button style={{backgroundColor: "#0047ab", color: 'white'}} onClick={logOutOfApp} variant="outlined">Logout</Button>
             </div>
             
