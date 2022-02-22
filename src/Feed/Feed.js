@@ -175,8 +175,8 @@ function Feed({ search }) {
                     </div>
             </div>
             <FlipMove>
-                { search ? 
-                    (posts.filter(msg => msg?.data.name?.includes(search)).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
+                
+                    {posts.filter(msg => msg?.data.name?.toLowerCase().includes(search.toLowerCase())).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
                         <Posts 
                             id = {id}
                             name = {name}
@@ -198,32 +198,10 @@ function Feed({ search }) {
                             setUpdatedMessage={setUpdatedMessage}
                             updateThePost={() => updateThePost(id, userIdInPost)}
                         />
-                    ))) 
-                    : 
-                        (posts.map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
-                            <Posts 
-                                id = {id}
-                                name = {name}
-                                description= {description}
-                                message= {message}
-                                photoUrl= {photoUrl}
-                                likedBy={likedBy}
-                                comment={commentCount}
-                                userIdInPost={userIdInPost}
-                                postDeletionSuccess={postDeletionSuccess}
-                                setPostDeletionSuccess={setPostDeletionSuccess}
-                                cantDeleteOthersPost={cantDeleteOthersPost}
-                                setCantDeleteOthersPost={setCantDeleteOthersPost}
-                                showCantDeleteOthersPost={showCantDeleteOthersPost}
-                                hasUserLikedThePost={likedBy?.includes(user.uid)}
-                                onLikeClick={() => onlikePost(id, likedBy, likeCount)}
-                                // showPostUpdated={showPostUpdated}
-                                updatedMessage={updatedMessage}
-                                setUpdatedMessage={setUpdatedMessage}
-                                updateThePost={() => updateThePost(id, userIdInPost)}
-                            />
-                        )))
-                }
+                    )) }
+                    
+                        
+                
             </FlipMove>              
         </div>
     )
