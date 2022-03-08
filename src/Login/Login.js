@@ -14,14 +14,17 @@ function Login() {
 
     const loginToApp = (e) => {
         e.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).then((userAuth)=>{
+        console.log("e", email)
+        console.log("p", password)
+        auth.signInWithEmailAndPassword(email, password)
+        .then((userAuth)=>{
             dispatch(login({
                 email: userAuth?.email,
                 uid: userAuth?.uid,
                 displayName: userAuth?.displayName,
             }))
         }).catch((error) => {
-            alert(error)
+            alert(error.message)
         })
     }
     const register = () => {
@@ -45,6 +48,8 @@ function Login() {
             .catch((error) => alert(error));
     };
     
+    console.log("email", email)
+    console.log("pass", password)
 
 
 

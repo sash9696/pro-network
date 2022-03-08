@@ -1,0 +1,22 @@
+
+.info{
+    display: flex;
+    position: absolute;
+    top: 2%;
+    right: 6%;
+    width: 300px;
+    height: 80px;
+    background-color:whitesmoke;
+    z-index: 999;
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+.info-content{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+}
+.close-icon{
+    cursor: pointer;
+}

@@ -3,8 +3,15 @@ import './Widgets.css';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import InfoIcon from '@material-ui/icons/Info'
 import { newsItems } from './NewsItems';
+import Info from './Info';
+import { useState } from 'react';
 
 function Widgets() {
+    const [info, setInfo] = useState(false)
+    const handleInfo = () => {
+        setInfo(!info)
+        return <Info/>
+    }
 
     const news = (headlines, subtitles, link) => (
         <a style={{textDecoration: 'none'}} href={link} target="_blank">
@@ -22,8 +29,9 @@ function Widgets() {
     return (
         <div className='widget_container'>
             <div className="widgets_header">
+                {info && <Info info={info} setInfo={setInfo} />}
                 <h2>Pro Network News</h2>
-                <InfoIcon/>
+                <InfoIcon className='info-icon' onClick={handleInfo}/>
             </div>
 
             {newsItems.map((value) => (
