@@ -14,8 +14,7 @@ function Login() {
 
     const loginToApp = (e) => {
         e.preventDefault();
-        console.log("e", email)
-        console.log("p", password)
+       
         auth.signInWithEmailAndPassword(email, password)
         .then((userAuth)=>{
             dispatch(login({
@@ -48,8 +47,7 @@ function Login() {
             .catch((error) => alert(error));
     };
     
-    console.log("email", email)
-    console.log("pass", password)
+   
 
 
 
