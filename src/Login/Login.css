@@ -42,11 +42,20 @@
 .login_container > p{
     font-size: 0.8rem;
     font-weight: 400;
+    margin-top: 10px;
 }
 .login_container > p > span{
     color: #0074b1;
     cursor: pointer;
 }
+.guest_option{
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 600 ;
+    color: #0074b1;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 400px){
     .login_container > form >input{
         width: 250px;

@@ -18,10 +18,11 @@ function Login() {
         auth.signInWithEmailAndPassword(email, password)
         .then((userAuth)=>{
             dispatch(login({
-                email: userAuth?.email,
-                uid: userAuth?.uid,
-                displayName: userAuth?.displayName,
+                email: userAuth?.user.email,
+                uid: userAuth?.user.uid,
+                displayName: userAuth?.user.displayName,
             }))
+
         }).catch((error) => {
             alert(error.message)
         })
@@ -38,15 +39,29 @@ function Login() {
 
                 }).then(() =>{
                     dispatch(login({
-                        email: userAuth.user.email,
-                        uid: userAuth.user.uid,
-                        displayName: userAuth.user.displayName,
+                        email: userAuth?.user.email,
+                        uid: userAuth?.user.uid,
+                        displayName: userAuth?.user.displayName,
                     }))
                 })
             })
             .catch((error) => alert(error));
     };
-    
+    const guest = () => {
+        
+        auth.signInWithEmailAndPassword("guest@gmail.com", "abcabc")
+        .then((userAuth)=>{
+            
+            dispatch(login({
+                email: userAuth?.user.email,
+                uid: userAuth?.user.uid,
+                displayName: userAuth?.user.displayName,
+            }))
+
+        }).catch((error) => {
+            alert(error.message)
+        })
+    }
    
 
 
@@ -62,6 +77,7 @@ function Login() {
                 <input value={password} onChange={(e => setPassword(e.target.value))} placeholder='Password' type='password'/>
                 <button onClick={loginToApp} className='signin_button' type='submit'>Sign In</button>
             </form>
+            <h3 onClick={guest}  className='guest_option'> Guest Login</h3>
             <p>Not a member?<span onClick={register} className='register_option'> Register now.</span></p>
            
         </div>

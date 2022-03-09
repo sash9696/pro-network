@@ -36,6 +36,12 @@
     justify-content: space-evenly;
 }
 
+.posts_options_not_user {
+    display: flex;
+    padding-top: 20px;
+   padding: 0 65px;
+}
+
 .posts_body > p{
     padding-left: 10px;
     padding-top: 15px;

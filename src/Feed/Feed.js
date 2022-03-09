@@ -12,10 +12,12 @@ import firebase from 'firebase/compat/app'
 import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import FlipMove from 'react-flip-move';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, uploadString } from "firebase/storage";
+import { v4 as uuid } from "uuid";
 
 function Feed({ search }) {
     const user = useSelector(selectUser);
-    
+
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [olderPosts, setOlderPosts] = useState([]);
@@ -24,6 +26,9 @@ function Feed({ search }) {
     const [updatedMessage, setUpdatedMessage] = useState('');
     const [postUpdationSuccess, setPostUpdationSuccess] = useState(false);
     const [cantUpdateOthersPost, setCantUpdateOthersPost] = useState(false);
+    const [usersPost, setUsersPost] = useState(null)
+    const [image, setImage] = useState("")
+    
 
     useEffect(() => {
             getPosts();
@@ -51,11 +56,13 @@ function Feed({ search }) {
 
     const sendPost = (e) => {
         e.preventDefault();
+
+	
         if (input) {
             db.collection('posts').add({
-                userIdInPost: user.uid,
-                name: user.displayName,
-                description: user.email,
+                userIdInPost: user?.uid,
+                name: user?.displayName,
+                description: user?.email,
                 message:input,
                 photoUrl: user.photoUrl || "",
                 likeCount: 0,
@@ -152,9 +159,65 @@ function Feed({ search }) {
             setCantUpdateOthersPost(false)
         }, 4000)
     }
+    
+
+    // const onChangePicture = e => {
+    //     console.log('picture: ', image?.[0]?.name);
+    //     setImage([...image, e.target.files[0]]);
+    //     const id = uuid();
+	// 	console.log("working");
+
+	// 	const storage = getStorage();
+	// 	const metadata = {
+	// 		contentType: "image/png",
+	// 	};
+	// 	const storageRef = ref(storage, `posts/${id}`);
+	// 	uploadString(storageRef, image?.[0]?.name, "data_url").then(
+	// 		(snapshot) => {}
+	// 	);
+	// 	const uploadTask = uploadBytesResumable(
+	// 		storageRef,
+	// 		image?.[0]?.name,
+	// 		metadata
+	// 	);
+
+	// 	// Register three observers:
+	// 	// 1. 'state_changed' observer, called any time the state changes
+	// 	// 2. Error observer, called on failure
+	// 	// 3. Completion observer, called on successful completion
+	// 	uploadTask.on(
+	// 		"state_changed",
+	// 		null,
+	// 		(error) => {
+	// 			// Handle unsuccessful uploads
+	// 			console.log(error);
+	// 		},
+	// 		() => {
+	// 			// Handle successful uploads on complete
+	// 			// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+	// 			getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+	// 				db.collection("posts").add({
+	// 					imageUrl: downloadURL,
+	// 					uuserIdInPost: user?.uid,
+    //                     name: user?.displayName,
+    //                     description: user?.email,
+    //                     message:input,
+    //                     photoUrl: user.photoUrl || "",
+    //                     likeCount: 0,
+    //                     likedBy: [],
+    //                     commentCount: 0,
+    //                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
+	// 				});
+	// 			});
+	// 		}
+	// 	);
+    // };
+
+
 
     return (
         <div className='feed_container'>
+            <p>{}</p>
             {cantDeleteOthersPost && showCantDeleteOthersPost()}
             {postDeletionSuccess && showPostDeleted()}
             {postUpdationSuccess && showPostUpdated()}
@@ -168,16 +231,29 @@ function Feed({ search }) {
                         </form>
                     </div>
                     <div className="input_items">
-                         <InputItems Icon={ImageIcon} title="Photo" color="#70B5F9"/>
-                         <InputItems Icon={SubscriptionsIcon} title="Video" color="#E7A33E"/>
-                         <InputItems Icon={EventNoteIcon} title="Event" color="#E7A33E"/>
-                         <InputItems Icon={CalendarViewDayIcon} title="Write Article" color="#E7A33E"/>
+                        <div className="fileUpload">
+                            <input 
+                                type="file" 
+                                className="upload" 
+                                id="file-selector"
+                                accept="image/png, image/gif, image/jpeg" 
+                                // value={image}
+                                // onChange={(e) => console.log(e.target.files[0])}
+                                // onChange={e => onChangePicture(e)}
+                            />
+                            <span><InputItems Icon={ImageIcon} title="Photo" color="#70B5F9" /></span>
+                        </div>
+                        <div className="fileUpload">
+                            <input type="file" className="upload" accept="video/*" />
+                            <span><InputItems Icon={SubscriptionsIcon} title="Video" color="#E7A33E" /></span>
+                        </div>
                     </div>
             </div>
             <FlipMove>
                 
                     {posts.filter(msg => msg?.data.name?.toLowerCase().includes(search.toLowerCase())).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
                         <Posts 
+                            key={id}
                             id = {id}
                             name = {name}
                             description= {description}
@@ -197,6 +273,7 @@ function Feed({ search }) {
                             updatedMessage={updatedMessage}
                             setUpdatedMessage={setUpdatedMessage}
                             updateThePost={() => updateThePost(id, userIdInPost)}
+                            usersPost={userIdInPost === user.uid}
                         />
                     )) }
                     

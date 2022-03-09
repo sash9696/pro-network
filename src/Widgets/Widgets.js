@@ -34,8 +34,11 @@ function Widgets() {
                 <InfoIcon className='info-icon' onClick={handleInfo}/>
             </div>
 
-            {newsItems.map((value) => (
-                news(value.headline, value.subtitle, value.link)
+            {newsItems.map((value, index) => (
+                <div key={index} className="single-news">
+                    {news(value.headline, value.subtitle, value.link)}
+                </div>
+                
             ))}   
             
         </div>

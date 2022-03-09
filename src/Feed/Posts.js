@@ -14,10 +14,12 @@ import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
-const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, hasUserLikedThePost, comment, setPostDeletionSuccess, setCantDeleteOthersPost, onLikeClick, userIdInPost, updatedMessage, setUpdatedMessage, updateThePost},ref) => {
+const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, hasUserLikedThePost, comment, setPostDeletionSuccess, setCantDeleteOthersPost, onLikeClick, userIdInPost, updatedMessage, setUpdatedMessage, updateThePost, checkIfUsersPost, usersPost},ref) => {
 
     const user = useSelector(selectUser);
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    
 
     const setCantDeleteOthersPostFalse = () => {
         setTimeout(() => {
@@ -82,7 +84,7 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
             <div className="posts_body">
                     <p>{message}</p>
             </div>
-            <div className="posts_options">
+            <div className={usersPost ? "posts_options" : "posts_options_not_user"}>
                 <InputItems 
                     Icon={hasUserLikedThePost ? ThumbUpIcon : ThumbUpOutlinedIcon} 
                     onClick={onLikeClick} 
@@ -94,11 +96,14 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
                     Icon={MessageOutlinedIcon} 
                     title="Comment" 
                 /> */}
-                <InputItems 
-                    Icon={EditIcon} 
-                    title="Edit" 
-                    onClick={openModal}
-                />
+                {usersPost && 
+                    <InputItems 
+                        Icon={EditIcon} 
+                        title="Edit" 
+                        onClick={openModal}
+                    />
+                }
+                
                 {/* <InputItems 
                     Icon={ShareOutlinedIcon} 
                     title="Share" 
@@ -107,12 +112,15 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
                     Icon={SendOutlinedIcon} 
                     title="Send" 
                 />     */}
-                <div onClick={deletePost}>
+                {usersPost &&
+                    <div onClick={deletePost}>
                     <InputItems 
                         Icon={DeleteOutlineIcon}
                         title="Delete" 
                     />  
-                </div>
+                    </div>
+                }
+                
             </div>  
             <Modal
                 isOpen={modalIsOpen}
