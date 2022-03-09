@@ -14,14 +14,27 @@ import { auth } from '../firebase';
 import { logout } from '../features/userSlice';
 import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ search, setSearch }) {
+
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const logOutOfApp = () => {
         dispatch(logout())
         auth.signOut()
     }
+
+    const goToHomePage = () => {
+        navigate('/')
+    }
+
+    const goToAboutPage = () => {
+        navigate('/about-us')
+    }
+
     return (
         <div className='header_container'>
             <div className="header_left">
@@ -32,10 +45,11 @@ function Header({ search, setSearch }) {
                 </div>
             </div>
             <div className="header_right">
-                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} variant="outlined">Hi, {user.displayName}</Button>
+                <Button style={{border: 'none', color: "#0047ab"}} variant="outlined">Hi, {user.displayName}</Button>
+                <Button style={{border: 'none', color: "#0047ab"}} onClick={goToHomePage} variant="outlined">Home</Button>
+                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={goToAboutPage} variant="outlined">About Us</Button>
                 <Button style={{backgroundColor: "#0047ab", color: 'white'}} onClick={logOutOfApp} variant="outlined">Logout</Button>
             </div>
-            
         </div>
     )
 }

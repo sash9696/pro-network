@@ -84,7 +84,7 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.feed_cant_delete_others_post, .feed_post_deleted {
+.feed_cant_delete_others_post, .feed_post_deleted, .scroll_btn {
     position: absolute;
     position: fixed;
     bottom: 0;
@@ -105,7 +105,28 @@ input[type="file"] {
     color: #0047ab;
     border: 1px solid #0047ab;
 }
-
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 12%;
+    font-size: 40px;
+    background-color: white;
+    color: #0047ab;
+    cursor: pointer;
+    border-radius: 100px;
+    border: none;
+    box-shadow: 0 5px 10px #ccc;
+  }
+  .back-to-top:hover {
+    background-color: #0047ab;
+    color: white;
+  }
+  
+/* .scroll_btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+} */
 @media only screen and (max-width: 800px) {
     .feed_container{
         flex: 1;

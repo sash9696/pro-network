@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
-import sahil from './images/sahil.jpeg';
 import Feed from './Feed/Feed';
 import {useSelector, useDispatch} from "react-redux";
 import { selectUser } from './features/userSlice';
@@ -11,7 +10,9 @@ import { auth } from './firebase';
 import { login, logout } from './features/userSlice';
 import Widgets from './Widgets/Widgets';
 // import Example from './Example';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Container/Home/Home';
+import About from './Container/About/About';
 
 function App() {
   
@@ -35,17 +36,20 @@ function App() {
   }, [])
 
   return (
-    <div className="app">
-      {user && <Header search={search} setSearch={setSearch} /> } 
-      {/* App Body */}
-      {!user ? <Login/> : (   
+    <BrowserRouter>
+      <div className="app">
+        {user && <Header search={search} setSearch={setSearch} /> } 
+        {/* App Body */}
+        {!user ? <Login/> : (   
           <div className="app_body"> 
-          <Sidebar avatar= {sahil}/>
-          <Feed search={search} />
-          <Widgets/>
-        </div>
-      )}
-    </div>
+            <Routes>
+              <Route path='/' element={<Home search={search} />} />  
+              <Route path='/about-us' element={<About />} />  
+            </Routes>
+          </div>
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 

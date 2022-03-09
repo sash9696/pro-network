@@ -28,7 +28,7 @@ function Feed({ search }) {
     const [cantUpdateOthersPost, setCantUpdateOthersPost] = useState(false);
     const [usersPost, setUsersPost] = useState(null)
     const [image, setImage] = useState("")
-    
+    const [scrollVisible, setScrollVisible] = useState(false)
 
     useEffect(() => {
             getPosts();
@@ -56,8 +56,6 @@ function Feed({ search }) {
 
     const sendPost = (e) => {
         e.preventDefault();
-
-	
         if (input) {
             db.collection('posts').add({
                 userIdInPost: user?.uid,
@@ -213,6 +211,24 @@ function Feed({ search }) {
 	// 	);
     // };
 
+    const toggleVisible = () => {
+        const scrolled = document.documentElement.scrollTop;
+        if (scrolled > 300){
+            setScrollVisible(true)
+        } 
+        else if (scrolled <= 300){
+            setScrollVisible(false)
+        }
+      };
+      
+      const scrollToTop = () =>{
+        window.scrollTo({
+          top: 0, 
+          behavior: 'smooth'
+        });
+      };
+      
+      window.addEventListener('scroll', toggleVisible);
 
 
     return (
@@ -222,6 +238,11 @@ function Feed({ search }) {
             {postDeletionSuccess && showPostDeleted()}
             {postUpdationSuccess && showPostUpdated()}
             {cantUpdateOthersPost && showCantUpdateOthersPost()}
+            {scrollVisible && (
+                <button onClick={scrollToTop} className="back-to-top">
+                &#8679;
+                </button>
+            )}
             <div className="container">
                     <div className="input_container">
                         <CreateIcon/>
