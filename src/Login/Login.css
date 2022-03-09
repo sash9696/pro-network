@@ -1,7 +1,24 @@
-.login_container{
-    background-color: whitesmoke;
+.login_container {
+    background-color: #0074b1;
     width: 100vw;
     height: 100vh;
+    display: flex;
+}
+.login_container_left {
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 80px;
+}
+.login_container_left_text {
+    padding: 0 10%;
+}
+.login_container_right{
+    flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,18 +26,26 @@
     margin-left: auto;
     margin-right: auto;
 }
-.login_container > img{
+.form_container {
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+.form_container > img{
    width: 150px;
    object-fit: contain;
 }
-.login_container > form{
+.form_container > form{
     display: flex;
     flex-direction: column;
     /* margin: 40px; */
     margin: 20px 0px;
     
 }
-.login_container > form >input{
+.form_container > form >input{
     width: 355px;
     height: 50px;
     margin-bottom: 8px;
@@ -30,7 +55,7 @@
     border-width: 2px;
     
 }
-.login_container > form > button{
+.form_container > form > button{
   width: 365px;
   height: 50px;
   font-size: large;
@@ -39,12 +64,12 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.login_container > p{
+.form_container > p{
     font-size: 0.8rem;
     font-weight: 400;
     margin-top: 10px;
 }
-.login_container > p > span{
+.form_container > p > span{
     color: #0074b1;
     cursor: pointer;
 }
@@ -57,13 +82,13 @@
 }
 
 @media only screen and (max-width: 400px){
-    .login_container > form >input{
+    .login_container_right > form >input{
         width: 250px;
         margin-left: 10px;
     }
 }
 @media only screen and (max-width: 400px){
-    .login_container > form > button{
+    .login_container_right > form > button{
         width: 71vw;
         margin-left: 10px;
     }

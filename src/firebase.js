@@ -1,6 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
     apiKey: "AIzaSyBFTRhGqMM5-W7_ocWAVEmrx4SFv5x3lpI",
     authDomain: "pro-networking22.firebaseapp.com",
@@ -13,8 +15,9 @@ const firebaseConfig = {
   const firebaseApp = firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
   const auth = firebaseApp.auth();
+  const storage = getStorage();
   
-  export {auth};
+  export {auth, storage};
   export default db;
  
 
