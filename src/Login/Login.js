@@ -10,8 +10,8 @@ function Login() {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [profilePic, setProfilePic] = useState("");
+    const [password, setPassword] = useState("");
     const  dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -63,6 +63,7 @@ function Login() {
                 uid: userAuth?.user.uid,
                 displayName: userAuth?.user.displayName,
             }))
+            navigate('/')
 
         }).catch((error) => {
             alert(error.message)

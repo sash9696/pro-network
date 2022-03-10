@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import './EditProfileInput.css';
 import Button from '@material-ui/core/Button';
 
-function EditProfileInput({ label, defaultValue, setName, setEmail, nameEditClick, emailEditClick, editName, editEmail, updateUserData }) {
+function EditProfileInput({ label, defaultValue, setName, setEmail, nameEditClick, emailEditClick, editName, editEmail, updateUserData, updateName, updateUserEmail }) {
 
   return (
     <div className='edit_profile_input'>
@@ -23,7 +23,7 @@ function EditProfileInput({ label, defaultValue, setName, setEmail, nameEditClic
                 variant="outlined"
                 onClick={label === "Name" ? editName : editEmail}
             >
-                {label === "Name" ? (!nameEditClick ? "Edit" : <p onClick={updateUserData}>Save</p>) : (!emailEditClick ? "Edit" : <p onClick={updateUserData}>Save</p>)}
+                {label === "Name" ? (!nameEditClick ? "Edit" : <p onClick={updateName}>Save</p>) : (!emailEditClick ? "Edit" : <p onClick={updateUserEmail}>Save</p>)}
             </Button>
         </span>
     </div>

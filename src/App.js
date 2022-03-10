@@ -19,6 +19,8 @@ function App() {
   
   const user = useSelector(selectUser);
   const [search, setSearch] = useState('');
+  const [check, setCheck] = useState(false)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,12 +42,12 @@ function App() {
       <div className="app">
         {user && <Header search={search} setSearch={setSearch} /> } 
         {/* App Body */}
-        {!user ? <Login/> : (   
+        {!user ? <Login /> : (   
           <div className="app_body"> 
             <Routes>
-              <Route path='/' element={<Home search={search} />} />  
+              <Route path='/' element={<Home check={check} setCheck={setCheck}  search={search} />} />  
               <Route path='/about-us' element={<About />} />  
-              <Route path='/profile' element={<Profile />} />  
+              <Route path='/profile' element={<Profile check={check} setCheck={setCheck} />} />  
             </Routes>
           </div>
         )}

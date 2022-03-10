@@ -271,32 +271,38 @@ function Feed({ search }) {
                     </div>
             </div>
             <FlipMove>
+                    
+                    
                 
-                    {posts.filter(msg => msg?.data.name?.toLowerCase().includes(search.toLowerCase())).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
-                        <Posts 
-                            key={id}
-                            id = {id}
-                            name = {name}
-                            description= {description}
-                            message= {message}
-                            photoUrl= {photoUrl}
-                            likedBy={likedBy}
-                            comment={commentCount}
-                            userIdInPost={userIdInPost}
-                            postDeletionSuccess={postDeletionSuccess}
-                            setPostDeletionSuccess={setPostDeletionSuccess}
-                            cantDeleteOthersPost={cantDeleteOthersPost}
-                            setCantDeleteOthersPost={setCantDeleteOthersPost}
-                            showCantDeleteOthersPost={showCantDeleteOthersPost}
-                            hasUserLikedThePost={likedBy?.includes(user.uid)}
-                            onLikeClick={() => onlikePost(id, likedBy, likeCount)}
-                            // showPostUpdated={showPostUpdated}
-                            updatedMessage={updatedMessage}
-                            setUpdatedMessage={setUpdatedMessage}
-                            updateThePost={() => updateThePost(id, userIdInPost)}
-                            usersPost={userIdInPost === user.uid}
-                        />
-                    )) }
+                    { posts.filter(msg => msg?.data.name?.toLowerCase().includes(search.toLowerCase())).map(({id, data:{name, description, message, photoUrl, likeCount, likedBy, commentCount, userIdInPost}}) => ( 
+                                <Posts 
+                                    key={id}
+                                    id = {id}
+                                    name = {name}
+                                    description= {description}
+                                    message= {message}
+                                    photoUrl= {photoUrl}
+                                    likedBy={likedBy}
+                                    comment={commentCount}
+                                    userIdInPost={userIdInPost}
+                                    postDeletionSuccess={postDeletionSuccess}
+                                    setPostDeletionSuccess={setPostDeletionSuccess}
+                                    cantDeleteOthersPost={cantDeleteOthersPost}
+                                    setCantDeleteOthersPost={setCantDeleteOthersPost}
+                                    showCantDeleteOthersPost={showCantDeleteOthersPost}
+                                    hasUserLikedThePost={likedBy?.includes(user.uid)}
+                                    onLikeClick={() => onlikePost(id, likedBy, likeCount)}
+                                    // showPostUpdated={showPostUpdated}
+                                    updatedMessage={updatedMessage}
+                                    setUpdatedMessage={setUpdatedMessage}
+                                    updateThePost={() => updateThePost(id, userIdInPost)}
+                                    usersPost={userIdInPost === user.uid}
+                                />
+                    
+                    
+                    )) 
+                
+                }
                     
                         
                 

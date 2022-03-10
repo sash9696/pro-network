@@ -2,4 +2,18 @@
     padding: 50px;
     background-color: white;
     border-radius: 5px;
+    position: relative;
+}
+.button{
+    text-align: center;
+}
+.button > button {
+    padding: 10px 20px;
+    border: none;
+    outline: 0;
+    background-color: transparent;
+}
+.button > button:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
 }

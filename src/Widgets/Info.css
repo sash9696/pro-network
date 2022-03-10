@@ -6,12 +6,13 @@
     align-items: center;
     top: 2%;
     width: 300px;
-    height: 60px;
+    height: 70px;
     background-color:white;
     z-index: 999;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 2px 2px gainsboro;
+    padding: 10px 0;
 }
 .info-content{
     display: flex;
@@ -20,4 +21,12 @@
 }
 .close-icon{
     cursor: pointer;
+}
+.close-checkButton{
+    width: 100%;
+    align-items: center;
+    margin-top: 10px;
+}
+.close-checkButton > button{
+    width: 50px;
 }

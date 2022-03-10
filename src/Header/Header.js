@@ -45,7 +45,7 @@ function Header({ search, setSearch }) {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2dYFM1O8GbZ52Bc3lQqGXRSOsJrK3RnHbaQ&usqp=CAU " alt=""/>
                 <div className="search_box">
                     <SearchIcon className='search_icon'/>
-                    <input type="text" placeholder='Search' value={search} onChange={(e => setSearch(e.target.value))} />
+                    <input type="text" placeholder='Search User' value={search} onChange={(e => setSearch(e.target.value))} />
                 </div>
             </div>
             <div className="header_right">

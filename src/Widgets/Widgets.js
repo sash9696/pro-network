@@ -6,7 +6,7 @@ import { newsItems } from './NewsItems';
 import Info from './Info';
 import { useState } from 'react';
 
-function Widgets() {
+function Widgets({check, setCheck}) {
     const [info, setInfo] = useState(false)
     const handleInfo = () => {
         setInfo(!info)
@@ -29,7 +29,13 @@ function Widgets() {
     return (
         <div className='widget_container'>
             <div className="widgets_header">
-                {info && <Info info={info} setInfo={setInfo} />}
+                {info && <Info 
+                        info={info} 
+                        setInfo={setInfo} 
+                        message=" These are the  top professional news stories and conversations. "
+                        check={check}
+                        setCheck={setCheck}
+                        />}
                 <h2>Pro Network News</h2>
                 <InfoIcon className='info-icon' onClick={handleInfo}/>
             </div>

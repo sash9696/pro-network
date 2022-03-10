@@ -2,10 +2,10 @@ import React from 'react';
 import './Profile.css';
 import ProfilePage from '../../ProfilePage/ProfilePage';
 
-function Profile() {
+function Profile({check, setCheck, password, setPassword}) {
   return (
     <div className='container_profile'>
-        <ProfilePage />
+        <ProfilePage check={check} setCheck={setCheck} password={password} setPassword={setPassword} />
     </div>
   )
 }
