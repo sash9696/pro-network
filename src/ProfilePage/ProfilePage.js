@@ -4,6 +4,8 @@ import { selectUser, login } from '../features/userSlice';
 import EditProfileInput from './EditProfileInput';
 import './ProfilePage.css';
 import firebase from 'firebase/compat/app'
+import { auth } from '../firebase';
+
 
 function ProfilePage() {
 
@@ -57,7 +59,9 @@ function ProfilePage() {
     // }
 
     const updateUserData = () => {
-        var userNow = firebase.auth().currentUser;
+        console.log(auth.currentUser)
+        
+        var userNow = auth.currentUser;
           userNow.updateProfile({
           displayName: name,
           email: email,

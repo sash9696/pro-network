@@ -23,7 +23,7 @@ function Feed({ search }) {
     const [olderPosts, setOlderPosts] = useState([]);
     const [cantDeleteOthersPost, setCantDeleteOthersPost] = useState(false);
     const [postDeletionSuccess, setPostDeletionSuccess] = useState(false);
-    const [updatedMessage, setUpdatedMessage] = useState('');
+    const [updatedMessage, setUpdatedMessage] = useState("");
     const [postUpdationSuccess, setPostUpdationSuccess] = useState(false);
     const [cantUpdateOthersPost, setCantUpdateOthersPost] = useState(false);
     const [usersPost, setUsersPost] = useState(null)

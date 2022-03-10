@@ -132,7 +132,7 @@ const Posts = forwardRef (({id, name, message, description, photoUrl, likedBy, h
                     <h2>Edit Post</h2>
                     <button className='edit_post_modal_heading_close' onClick={closeModal}>&#10539;</button>
                 </div>
-                <input className='edit_post_modal_input' value={updatedMessage} onChange={editPostHandler} />
+                <input className='edit_post_modal_input' defaultValue={message} onChange={editPostHandler} />
                 <div className='edit_post_modal_update_btn' onClick={() => {updateThePost(); closeModal();}}>
                     <Button style={{backgroundColor: "#0047ab", color: 'white'}} variant="outlined">Update</Button>
                 </div>

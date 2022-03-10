@@ -3,6 +3,8 @@ import {useDispatch} from 'react-redux';
 import { auth } from '../firebase';
 import './Login.css';
 import { login } from '../features/userSlice';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
 
@@ -11,6 +13,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [profilePic, setProfilePic] = useState("");
     const  dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const loginToApp = (e) => {
         e.preventDefault();
@@ -22,6 +25,7 @@ function Login() {
                 uid: userAuth?.user.uid,
                 displayName: userAuth?.user.displayName,
             }))
+            navigate('/')
 
         }).catch((error) => {
             alert(error.message)
@@ -44,6 +48,7 @@ function Login() {
                         uid: userAuth?.user.uid,
                         displayName: userAuth?.user.displayName,
                     }))
+                    navigate('/')
                 })
             })
             .catch((error) => alert(error));
