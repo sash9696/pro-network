@@ -59,7 +59,6 @@ function ProfilePage() {
     // }
 
     const updateUserData = () => {
-        console.log(auth.currentUser)
         
         var userNow = auth.currentUser;
           userNow.updateProfile({
