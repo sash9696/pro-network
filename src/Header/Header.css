@@ -7,10 +7,10 @@
     border-bottom: 1px solid lightgrey;
     justify-content: space-between;
     z-index: 999;
-    padding: 0 10%;
+    padding: 0 12%;
 }
 .header_left{
-    margin: 10px;
+    margin: 10px 0;
     display: flex; 
     align-items: center; 
     justify-content: space-evenly;
@@ -41,7 +41,6 @@
 .header_right{
     display: flex;
     align-items: center;
-    padding-right: 11%;
 }
 @media only screen and (max-width: 800px){
     .header_container{

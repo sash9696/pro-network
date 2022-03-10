@@ -35,6 +35,10 @@ function Header({ search, setSearch }) {
         navigate('/about-us')
     }
 
+    const goToProfilePage = () => {
+        navigate('/profile')
+    }
+
     return (
         <div className='header_container'>
             <div className="header_left">
@@ -47,7 +51,8 @@ function Header({ search, setSearch }) {
             <div className="header_right">
                 <Button style={{border: 'none', color: "#0047ab"}} variant="outlined">Hi, {user.displayName}</Button>
                 <Button style={{border: 'none', color: "#0047ab"}} onClick={goToHomePage} variant="outlined">Home</Button>
-                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={goToAboutPage} variant="outlined">About Us</Button>
+                <Button style={{border: 'none', color: "#0047ab"}} onClick={goToAboutPage} variant="outlined">About Us</Button>
+                <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={goToProfilePage} variant="outlined">Profile</Button>
                 <Button style={{backgroundColor: "#0047ab", color: 'white'}} onClick={logOutOfApp} variant="outlined">Logout</Button>
             </div>
         </div>

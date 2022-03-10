@@ -13,6 +13,7 @@ import Widgets from './Widgets/Widgets';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Container/Home/Home';
 import About from './Container/About/About';
+import Profile from './Container/Profile/Profile';
 
 function App() {
   
@@ -27,7 +28,6 @@ function App() {
           email: userAuth.email,
           uid: userAuth.uid,
           displayName: userAuth.displayName,
-
         }))
       } else {
         dispatch(logout());
@@ -45,6 +45,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home search={search} />} />  
               <Route path='/about-us' element={<About />} />  
+              <Route path='/profile' element={<Profile />} />  
             </Routes>
           </div>
         )}
