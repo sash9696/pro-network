@@ -31,7 +31,6 @@ function Feed({ search }) {
     const [image, setImage] = useState("")
     const [scrollVisible, setScrollVisible] = useState(false)
     const [closeUploadImage, setCloseUploadImage] = useState(false)
-    console.log(closeUploadImage)
     useEffect(() => {
             getPosts();
             db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
