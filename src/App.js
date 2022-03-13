@@ -47,7 +47,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home check={check} setCheck={setCheck}  search={search} />} />  
               <Route path='/about-us' element={<About />} />  
-              <Route path='/profile' element={<Profile check={check} setCheck={setCheck} />} />  
+              <Route path='/profile' element={<Profile check={check} setCheck={setCheck} />} /> 
             </Routes>
           </div>
         )}

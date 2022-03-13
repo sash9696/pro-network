@@ -14,10 +14,11 @@ import { selectUser } from '../features/userSlice';
 import FlipMove from 'react-flip-move';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, uploadString } from "firebase/storage";
 import { v4 as uuid } from "uuid";
+import UploadImage from './UploadImage';
 
 function Feed({ search }) {
     const user = useSelector(selectUser);
-
+    const [selectedImage, setSelectedImage] = useState(null)
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [olderPosts, setOlderPosts] = useState([]);
@@ -29,7 +30,8 @@ function Feed({ search }) {
     const [usersPost, setUsersPost] = useState(null)
     const [image, setImage] = useState("")
     const [scrollVisible, setScrollVisible] = useState(false)
-
+    const [closeUploadImage, setCloseUploadImage] = useState(false)
+    console.log(closeUploadImage)
     useEffect(() => {
             getPosts();
             db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
@@ -42,7 +44,9 @@ function Feed({ search }) {
                 )
             })   
     }, [])
-    
+    useEffect(() => {
+        
+    },[])
     const getPosts = () => {
         async function postData(url = '') {
             const response = await fetch(url);
@@ -251,7 +255,7 @@ function Feed({ search }) {
                             <button onClick={sendPost} type='submit'>Post</button> 
                         </form>
                     </div>
-                    <div className="input_items">
+                    {/* <div className="input_items">
                         <div className="fileUpload">
                             <input 
                                 type="file" 
@@ -268,7 +272,32 @@ function Feed({ search }) {
                             <input type="file" className="upload" accept="video/*" />
                             <span><InputItems Icon={SubscriptionsIcon} title="Video" color="#E7A33E" /></span>
                         </div>
+                    </div> */}
+                    <div className="input_items">
+                        <div className="fileUpload">
+                            <input 
+                                type="file" 
+                                className="upload" 
+                                id="file-selector"
+                                accept="image/png, image/gif, image/jpeg" 
+                                type="file"
+                                name="myImage"
+                                onChange={(event) => {
+                                console.log(event.target.files[0]);
+                                setSelectedImage(event.target.files[0]);
+                                setCloseUploadImage(true)
+                                }}
+
+                            />
+                            <span><InputItems  Icon={ImageIcon} title="Photo" color="#70B5F9" /></span>
+                        </div>
+                        <div className="fileUpload">
+                            <input type="file" className="upload" accept="video/*" />
+                            <span><InputItems Icon={SubscriptionsIcon} title="Video" color="#E7A33E" /></span>
+                        </div>
                     </div>
+                    {closeUploadImage && <UploadImage selectedImage={selectedImage} setSelectedImage={setSelectedImage} closeUploadImage={closeUploadImage} setCloseUploadImage ={setCloseUploadImage}  />
+ }
             </div>
             <FlipMove>
                     
