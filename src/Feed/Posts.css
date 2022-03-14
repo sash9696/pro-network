@@ -30,6 +30,7 @@
     color: black;
     font-weight: 400;
     overflow-wrap: anywhere;
+    padding-right: 1px;
 }
 .posts_options{
     display: flex;
