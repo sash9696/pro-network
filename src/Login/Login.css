@@ -81,6 +81,15 @@
     cursor: pointer;
 }
 
+@media only screen and (max-width: 900px){
+    .login_container{
+        display: flex;
+        flex-direction: column;
+        
+    }
+   
+}
+
 @media only screen and (max-width: 400px){
     .login_container_right > form >input{
         width: 250px;
