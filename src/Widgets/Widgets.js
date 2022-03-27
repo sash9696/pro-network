@@ -17,10 +17,11 @@ function Widgets({check, setCheck}) {
     const newsApi = async () => {
         try{
             const news = await axios.get(
-              `https://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}&pageSize=5`
+                //india_english_world
+              `https://newsapi.in/newsapi/news.php?key=${API_KEY}&category=india_english_world`
             );
-            console.log(news.data.articles)
-            setNewsItem(news.data.articles);
+            console.log(news.data.News)
+            setNewsItem(news.data.News);
         }
         catch (error){
             console.log(error)
@@ -30,7 +31,7 @@ function Widgets({check, setCheck}) {
         newsApi()
       },[])
 
-    const news = (headlines, subtitles, link) => (
+    const news = (headlines, link) => (
         <a style={{textDecoration: 'none'}} href={link} target="_blank">
             <div  className="widgets">
                 <div className="widgets_left">
@@ -38,7 +39,7 @@ function Widgets({check, setCheck}) {
                 </div>
                 <div className="widgets_right">
                     <p className='truncate'>{headlines}</p>
-                    <p className='subtitles'>{subtitles}</p>
+                    {/* <p className='subtitles'>{subtitles}</p> */}
                 </div>
             </div>
         </a>                
@@ -57,9 +58,9 @@ function Widgets({check, setCheck}) {
                 <InfoIcon className='info-icon' onClick={handleInfo}/>
             </div>
 
-            {newsItem.map((value, index) => (
+            {newsItem?.splice(0, 8).map((value, index) => (
                 <div key={index} className="single-news">
-                    {news(value?.title, value?.source.name, value.link)}
+                    {news(value?.title, value?.url )}
                 </div>
                 
             ))}   
