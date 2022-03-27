@@ -14,7 +14,7 @@ import { auth } from '../firebase';
 import { logout } from '../features/userSlice';
 import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header({ search, setSearch, theme, setTheme}) {
     const user = useSelector(selectUser);
@@ -56,7 +56,10 @@ function Header({ search, setSearch, theme, setTheme}) {
     return (
         <div className='header_container'>
             <div className="header_left">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2dYFM1O8GbZ52Bc3lQqGXRSOsJrK3RnHbaQ&usqp=CAU " alt=""/>
+                <Link to='/'>
+                    <img className='header_image'  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2dYFM1O8GbZ52Bc3lQqGXRSOsJrK3RnHbaQ&usqp=CAU " alt=""/>
+
+                </Link>
                 <div className="search_box">
                     <SearchIcon className='search_icon'/>
                     <input type="text" placeholder='Search User' value={search} onChange={(e => setSearch(e.target.value))} />

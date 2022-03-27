@@ -32,7 +32,7 @@
 .search_icon{
     color: gray;
 }
-.header_left > img{
+.header_image{
     height: 50px;
     width: 48px;
     object-fit: contain;

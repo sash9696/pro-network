@@ -57,6 +57,14 @@
 .info-icon{
     cursor: pointer;
 }
+.truncate {
+    width: 200px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 @media only screen and (max-width: 1000px) {
     .widget_container{
         display: none;
