@@ -16,8 +16,7 @@ import {useSelector} from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ search, setSearch }) {
-    const [theme, setTheme] = useState(false)
+function Header({ search, setSearch, theme, setTheme}) {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,10 +29,12 @@ function Header({ search, setSearch }) {
         if(!theme)
         {
           document.querySelector('html').style.filter = 'invert(1)'
+          localStorage.setItem('theme', !theme)
           setTheme(!theme)
         }
         else{
             document.querySelector('html').style.filter = 'invert(0)'
+            localStorage.setItem('theme', false)
             setTheme(!theme)
 
         }
@@ -66,7 +67,7 @@ function Header({ search, setSearch }) {
                 <Button style={{border: 'none', color: "#0047ab"}} onClick={goToHomePage} variant="outlined">Home</Button>
                 <Button style={{border: 'none', color: "#0047ab"}} onClick={goToAboutPage} variant="outlined">About Us</Button>
                 <Button style={{marginRight: "20px", border: 'none', color: "#0047ab"}} onClick={goToProfilePage} variant="outlined">Profile</Button>
-                <Button style={{border: 'none', color: "#0047ab"}} onClick={toggleTheme} variant="outlined">{!theme ? 'Dark Mode' : 'Light Mode'}</Button>
+                <Button style={{border: 'none', color: "#0047ab"}} onClick={toggleTheme} variant="outlined">{!theme  ? 'Dark Mode' : 'Light Mode'}</Button>
                 <Button style={{backgroundColor: "#0047ab", color: 'white'}} onClick={logOutOfApp} variant="outlined">Logout</Button>
             </div>
         </div>

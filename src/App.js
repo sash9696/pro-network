@@ -20,6 +20,8 @@ function App() {
   const user = useSelector(selectUser);
   const [search, setSearch] = useState('');
   const [check, setCheck] = useState(false)
+  const [theme, setTheme] = useState(false)
+
 
   const dispatch = useDispatch();
 
@@ -31,8 +33,18 @@ function App() {
           uid: userAuth.uid,
           displayName: userAuth.displayName,
         }))
+        if(localStorage.theme === 'true'){
+          document.querySelector('html').style.filter = 'invert(1)'
+          setTheme(localStorage.theme)
+        }
+        else{
+          document.querySelector('html').style.filter = 'invert(0)'
+        }
+
+       
       } else {
         dispatch(logout());
+
       }
     })
   }, [])
@@ -40,9 +52,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        {user && <Header search={search} setSearch={setSearch} /> } 
+        {user && <Header theme={theme} setTheme={setTheme}  search={search} setSearch={setSearch} /> } 
         {/* App Body */}
-        {!user ? <Login /> : (   
+        {!user ? <Login theme={theme} setTheme={setTheme} /> : (   
           <div className="app_body"> 
             <Routes>
               <Route path='/' element={<Home check={check} setCheck={setCheck}  search={search} />} />  

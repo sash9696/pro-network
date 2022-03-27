@@ -6,7 +6,7 @@ import { login } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 
-function Login() {
+function Login({theme, setTheme}) {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -15,6 +15,13 @@ function Login() {
     const  dispatch = useDispatch();
     const navigate = useNavigate()
 
+    if(localStorage.theme === 'true'){
+        document.querySelector('html').style.filter = 'invert(1)'
+        setTheme(localStorage.theme)
+      }
+      else{
+        document.querySelector('html').style.filter = 'invert(0)'
+      }
     const loginToApp = (e) => {
         e.preventDefault();
        
