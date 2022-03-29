@@ -31,7 +31,9 @@
     font-weight: 400;
     overflow-wrap: anywhere;
     padding-right: 1px;
+    
 }
+
 .posts_options{
     display: flex;
     padding-top: 20px;
@@ -43,7 +45,15 @@
     padding-top: 20px;
    padding: 0 65px;
 }
-
+.posts_bodyImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.posts_bodyImage > img{
+    height: 300px;
+    object-fit: contain;
+}
 .posts_body > p{
     padding-left: 10px;
     padding-top: 15px;
